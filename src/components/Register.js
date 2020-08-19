@@ -12,6 +12,12 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { useForm } from "react-hook-form";
+
+
+
+
+
 
 
 
@@ -27,6 +33,43 @@ function Copyright() {
       </Typography>
   );
 }
+
+
+function prom(data){
+  console.log(data);
+  let formdata = new FormData;
+  formdata.append('fullName',data.fullName);
+  // formdata.append('phone',data.phone);
+  // formdata.append('address',data.address);
+  // formdata.append('passport',data.c);
+  // formdata.append('site',data.site);
+  // formdata.append('code',data.code);
+  // formdata.append('email',data.email);
+  // formdata.append('password',data.password);
+  // formdata.append('role_id',data.role_id);
+
+  // console.log(typeof formdata)
+  // let promis = fetch('http://127.0.0.1:8000/api/register',{
+  //   method:'get',
+  //   // method:'post',
+  //   // body: formdata,
+  // }).then((r)=>{
+  //   console.log(r)
+  //   if(r.ok){
+  //     return r;
+  //   }
+  //   throw new Error('invalid status code exav')
+  // })
+  // promis
+  //     .then(r=>{
+  //       console.log(r.text())
+  //     })
+  fetch('http://127.0.0.1:8000/api/register', { method: 'POST', body: formdata })
+      .then(res => res.json())
+      .then(res => console.log(res + 'ggggggg'))
+
+}
+
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -50,7 +93,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp() {
   const classes = useStyles();
-
+const{register, handleSubmit} = useForm();
+const onSubmit = data => prom(data);
   return (
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -61,9 +105,9 @@ export default function SignUp() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <form className={classes.form} noValidate action='http://127.0.0.1:8000/api/register' method='post'>
+          <form  onSubmit={handleSubmit(onSubmit)}  >
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid  item xs={12} sm={6}>
               {/*  <TextField*/}
               {/*      autoComplete="fname"*/}
               {/*      name="firstName"*/}
@@ -75,12 +119,13 @@ export default function SignUp() {
               {/*      autoFocus*/}
               {/*  />*/}
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid  item xs={12} sm={6}>
                 <TextField
+                    inputRef={register({ required: true })}
                     variant="outlined"
                     required
                     fullWidth
-                    id="lastName"
+                    id="fullName"
                     label="fullName"
                     name="fullName"
                     autoComplete="fullName"
@@ -88,6 +133,7 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                    inputRef={register({ required: true })}
                     variant="outlined"
                     required
                     fullWidth
@@ -97,103 +143,111 @@ export default function SignUp() {
                     autoComplete="email"
                 />
               </Grid>
-              <Grid item xs={12}>
-                <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    name="password"
-                    label="Password"
-                    type="password"
-                    id="password"
-                    autoComplete="current-password"
-                />
-              </Grid>
+              {/*<Grid item xs={12} >*/}
+              {/*  <TextField*/}
+              {/*      inputRef={register({ required: true })}*/}
+              {/*      variant="outlined"*/}
+              {/*      required*/}
+              {/*      fullWidth*/}
+              {/*      name="password"*/}
+              {/*      label="Password"*/}
+              {/*      type="password"*/}
+              {/*      id="password"*/}
+              {/*      // autoComplete="current-password"*/}
+              {/*  />*/}
+              {/*</Grid>*/}
 
-              <Grid item xs={12}>
-                <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    name="role_id"
-                    label="role_id"
-                    type="role_id"
-                    id="role_id"
-                    autoComplete="role_id"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    name="phone"
-                    label="phone"
-                    type="phone"
-                    id="phone"
-                    autoComplete="phone"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    name="address"
-                    label="address"
-                    type="address"
-                    id="address"
-                    autoComplete="address"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    name="passport"
-                    label="passport"
-                    type="passport"
-                    id="passport"
-                    autoComplete="passport"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    name="status"
-                    label="status"
-                    type="status"
-                    id="status"
-                    autoComplete="status"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    name="site"
-                    label="site"
-                    type="site"
-                    id="site"
-                    autoComplete="site"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    name="code"
-                    label="code"
-                    type="code"
-                    id="code"
-                    autoComplete="code"
-                />
-              </Grid>
+              {/*<Grid item xs={12}>*/}
+              {/*  <TextField*/}
+              {/*      inputRef={register({ required: true })}*/}
+              {/*      variant="outlined"*/}
+              {/*      required*/}
+              {/*      fullWidth*/}
+              {/*      name="role_id"*/}
+              {/*      label="role_id"*/}
+              {/*      type="role_id"*/}
+              {/*      id="role_id"*/}
+              {/*      autoComplete="role_id"*/}
+              {/*  />*/}
+              {/*</Grid>*/}
+              {/*<Grid item xs={12}>*/}
+              {/*  <TextField*/}
+              {/*      inputRef={register({ required: true })}*/}
+              {/*      variant="outlined"*/}
+              {/*      required*/}
+              {/*      fullWidth*/}
+              {/*      name="phone"*/}
+              {/*      label="phone"*/}
+              {/*      type="phone"*/}
+              {/*      id="phone"*/}
+              {/*      autoComplete="phone"*/}
+              {/*  />*/}
+              {/*</Grid>*/}
+              {/*<Grid item xs={12}>*/}
+              {/*  <TextField*/}
+              {/*      inputRef={register({ required: true })}*/}
+              {/*      variant="outlined"*/}
+              {/*      required*/}
+              {/*      fullWidth*/}
+              {/*      name="address"*/}
+              {/*      label="address"*/}
+              {/*      type="address"*/}
+              {/*      id="address"*/}
+              {/*      autoComplete="address"*/}
+              {/*  />*/}
+              {/*</Grid>*/}
+              {/*<Grid item xs={12}>*/}
+              {/*  <TextField*/}
+              {/*      inputRef={register({ required: true })}*/}
+              {/*      variant="outlined"*/}
+              {/*      required*/}
+              {/*      fullWidth*/}
+              {/*      name="passport"*/}
+              {/*      label="passport"*/}
+              {/*      type="passport"*/}
+              {/*      id="passport"*/}
+              {/*      autoComplete="passport"*/}
+              {/*  />*/}
+              {/*</Grid>*/}
+              {/*<Grid item xs={12}>*/}
+              {/*  <TextField*/}
+              {/*      inputRef={register({ required: true })}*/}
+              {/*      variant="outlined"*/}
+              {/*      required*/}
+              {/*      fullWidth*/}
+              {/*      name="status"*/}
+              {/*      label="status"*/}
+              {/*      type="status"*/}
+              {/*      id="status"*/}
+              {/*      autoComplete="status"*/}
+              {/*  />*/}
+              {/*</Grid>*/}
+              {/*<Grid item xs={12}>*/}
+              {/*  <TextField*/}
+              {/*      inputRef={register({ required: true })}*/}
+              {/*      variant="outlined"*/}
+              {/*      required*/}
+              {/*      fullWidth*/}
+              {/*      name="site"*/}
+              {/*      label="site"*/}
+              {/*      type="site"*/}
+              {/*      id="site"*/}
+              {/*      autoComplete="site"*/}
+              {/*  />*/}
+              {/*</Grid>*/}
+              {/*<Grid item xs={12}>*/}
+              {/*  <TextField*/}
+              {/*      inputRef={register({ required: true })}*/}
+              {/*      variant="outlined"*/}
+              {/*      required*/}
+              {/*      fullWidth*/}
+              {/*      name="code"*/}
+              {/*      label="code"*/}
+              {/*      type="code"*/}
+              {/*      id="code"*/}
+              {/*      autoComplete="code"*/}
+              {/*  />*/}
+              {/*</Grid>*/}
 
               <Grid item xs={12}>
                 <FormControlLabel
@@ -203,6 +257,7 @@ export default function SignUp() {
               </Grid>
             </Grid>
             <Button
+                // onClick={prom}
                 type="submit"
                 fullWidth
                 variant="contained"
