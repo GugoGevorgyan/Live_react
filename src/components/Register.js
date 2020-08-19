@@ -13,6 +13,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
+
+
 function Copyright() {
   return (
       <Typography variant="body2" color="textSecondary" align="center">
@@ -59,19 +61,19 @@ export default function SignUp() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <form className={classes.form} noValidate>
+          <form className={classes.form} noValidate action='http://127.0.0.1:8000/api/register' method='post'>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
-                <TextField
-                    autoComplete="fname"
-                    name="firstName"
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="firstName"
-                    label="First Name"
-                    autoFocus
-                />
+              {/*  <TextField*/}
+              {/*      autoComplete="fname"*/}
+              {/*      name="firstName"*/}
+              {/*      variant="outlined"*/}
+              {/*      required*/}
+              {/*      fullWidth*/}
+              {/*      id="firstName"*/}
+              {/*      label="First Name"*/}
+              {/*      autoFocus*/}
+              {/*  />*/}
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -79,9 +81,9 @@ export default function SignUp() {
                     required
                     fullWidth
                     id="lastName"
-                    label="Last Name"
-                    name="lastName"
-                    autoComplete="lname"
+                    label="fullName"
+                    name="fullName"
+                    autoComplete="fullName"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -107,6 +109,92 @@ export default function SignUp() {
                     autoComplete="current-password"
                 />
               </Grid>
+
+              <Grid item xs={12}>
+                <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    name="role_id"
+                    label="role_id"
+                    type="role_id"
+                    id="role_id"
+                    autoComplete="role_id"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    name="phone"
+                    label="phone"
+                    type="phone"
+                    id="phone"
+                    autoComplete="phone"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    name="address"
+                    label="address"
+                    type="address"
+                    id="address"
+                    autoComplete="address"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    name="passport"
+                    label="passport"
+                    type="passport"
+                    id="passport"
+                    autoComplete="passport"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    name="status"
+                    label="status"
+                    type="status"
+                    id="status"
+                    autoComplete="status"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    name="site"
+                    label="site"
+                    type="site"
+                    id="site"
+                    autoComplete="site"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    name="code"
+                    label="code"
+                    type="code"
+                    id="code"
+                    autoComplete="code"
+                />
+              </Grid>
+
               <Grid item xs={12}>
                 <FormControlLabel
                     control={<Checkbox value="allowExtraEmails" color="primary" />}
