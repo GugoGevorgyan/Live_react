@@ -12,6 +12,21 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { useForm } from "react-hook-form";
+
+function to_login(data){
+  let formdata = new FormData;
+  formdata.append('email',data.email);
+  formdata.append('password',data.password);
+  fetch('http://127.0.0.1:8000/api/login', { method: 'POST', body: formdata })
+      .then(res => res.json())
+      .then(
+          res => {
+            localStorage.setItem('token', res.access_token);
+            localStorage.setItem('user', JSON.stringify(res.user) )
+          }
+      )
+}
 
 function Copyright() {
 
@@ -49,6 +64,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
   const classes = useStyles();
+  const{register, handleSubmit} = useForm();
+  const onSubmit = data => to_login(data);
+
 
   return (
     <Container component="main" maxWidth="xs">
@@ -60,8 +78,9 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
           <TextField
+            inputRef={register({ required: true })}
             variant="outlined"
             margin="normal"
             required
@@ -73,6 +92,7 @@ export default function SignIn() {
             autoFocus
           />
           <TextField
+            inputRef={register({ required: true })}
             variant="outlined"
             margin="normal"
             required
