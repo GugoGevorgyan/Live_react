@@ -13,8 +13,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useForm } from "react-hook-form";
-
-
+import {registerApi as api} from "../Path";
+import Axios_conf from "../Axios_conf";
 
 function Copyright() {
   return (
@@ -30,22 +30,11 @@ function Copyright() {
 }
 
 function to_register(data){
-  let formdata = new FormData;
-  formdata.append('fullName',data.fullName);
-  formdata.append('phone',data.phone);
-  formdata.append('address',data.address);
-  formdata.append('passport',data.c);
-  formdata.append('site',data.site);
-  formdata.append('code',data.code);
-  formdata.append('email',data.email);
-  formdata.append('password',data.password);
-  formdata.append('role_id',data.role_id);
-  fetch('http://127.0.0.1:8000/api/register', { method: 'POST', body: formdata })
-      .then(res => res.json())
+  Axios_conf.post(api,data)
+      .then(res => res)
   .then(
       res => {
-        localStorage.setItem('token', res.access_token);
-        localStorage.setItem('user', JSON.stringify(res.user) );
+        localStorage.setItem('token', res.data.access_token)
       }
   )
 }
