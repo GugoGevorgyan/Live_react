@@ -3,7 +3,11 @@ import {BrowserRouter as Router, Redirect, Route} from 'react-router-dom';
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Dashboard from "./components/Dashboard/Dashboard";
+
 import Product from "./components/product";
+
+import example from "./components/Dashboard/example";
+
 
 export default class createRoutes extends Component {
 
@@ -14,6 +18,7 @@ export default class createRoutes extends Component {
                 <Route path="/login" component={Login}/>
                 <Route path="/register" component={Register}/>
                 <Route path="/dashboard" component={Dashboard}/>
+                <Route path="/example" component={example}/>
             </Router>
         )
     }

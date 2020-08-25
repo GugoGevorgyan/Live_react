@@ -1,4 +1,5 @@
 import React from 'react';
+import { useForm } from "react-hook-form";
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,10 +13,13 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { useForm } from "react-hook-form";
+// <<<<<<< HEAD
 import {registerApi as api} from "../Path";
-import Axios_conf from "../Axios_conf";
 import Background from '../assets/img/pills_les_cuncliffe_fotolia_41089054_m 1.png';
+// =======
+import axiosConfig from './axiosConfig';
+
+// >>>>>>> 8c63d6ba816fe4358024af82d15cc1ab13fbc300
 function Copyright() {
   return (
       <Typography variant="body2" color="textSecondary" align="center">
@@ -30,7 +34,7 @@ function Copyright() {
 }
 
 function to_register(data){
-  Axios_conf.post(api,data)
+    axiosConfig.post(api,data)
       .then(res => res)
   .then(
       res => {
@@ -67,6 +71,7 @@ export default function SignUp() {
   const classes = useStyles();
 const{register, handleSubmit} = useForm();
 const onSubmit = data => to_register(data);
+
   return (
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -77,32 +82,28 @@ const onSubmit = data => to_register(data);
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <form  onSubmit={handleSubmit(onSubmit)}  >
+          <form className={classes.form}  onSubmit={ handleSubmit(onSubmit)}>
             <Grid container spacing={2}>
-              <Grid  item xs={12}
-                     // sm={6}
-              >
+              <Grid item xs={12} sm={6}>
                 <TextField
-                    inputRef={register({ required: true })}
+                    autoComplete="fullName"
+                    name="fullName"
                     variant="outlined"
                     required
                     fullWidth
                     id="fullName"
                     label="fullName"
-                    name="fullName"
-                    autoComplete="fullName"
+                    autoFocus
+                    inputRef={register({ required: true })}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                    inputRef={register({ required: true })}
-                    variant="outlined"
-                    required
-                    fullWidth
                     id="email"
                     label="Email Address"
                     name="email"
                     autoComplete="email"
+                    inputRef={register({ required: true })}
                 />
               </Grid>
               <Grid item xs={12} >
@@ -116,6 +117,7 @@ const onSubmit = data => to_register(data);
                     type="password"
                     id="password"
                     autoComplete="current-password"
+                    // inputRef={register}
                 />
               </Grid>
 

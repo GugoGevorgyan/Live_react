@@ -1,4 +1,5 @@
 import React from 'react';
+import { useForm } from "react-hook-form";
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,44 +13,12 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import {useForm} from "react-hook-form";
 import {loginApi as api} from "../Path";
-import Axios_conf from "../Axios_conf";
+import axiosConfig from './axiosConfig';
 
 function to_login(data) {
 
-
-
-    // const requestOptions = {
-    //     method: "POST",
-    //     // headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify({
-    //         data: data,
-    //     }),
-    // };
-    // fetch(this.props.api_url + "about_edit", requestOptions)
-    //     .then(async (response) => {
-    //         const data = await response.json();
-    //         console.log(data);
-    //         this.setState({
-    //             alert: {
-    //                 type: "success",
-    //                 message: "Page has been updated successfully.",
-    //             },
-    //         });
-    //     })
-    //     .catch(() => {
-    //         this.setState({
-    //             alert: {
-    //                 type: "error",
-    //                 message: "Operation error.",
-    //             },
-    //         });
-    //     });
-
-
-
-    Axios_conf.post(api,data)
+    axiosConfig.post(api,data)
         .then(res => res)
         .then(
             res => {
@@ -95,7 +64,10 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+
+
 export default function SignIn() {
+
     const classes = useStyles();
     const {register, handleSubmit} = useForm();
     const onSubmit = data => to_login(data);
