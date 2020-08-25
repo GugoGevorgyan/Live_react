@@ -13,10 +13,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-// <<<<<<< HEAD
 import {registerApi as api} from "../Path";
 import Background from '../assets/img/pills_les_cuncliffe_fotolia_41089054_m 1.png';
-// =======
 import axiosConfig from './axiosConfig';
 
 // >>>>>>> 8c63d6ba816fe4358024af82d15cc1ab13fbc300

@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router";
 import MaterialTable from "material-table";
+import {allProd as api} from "../../Path";
+import axiosConfig from '../axiosConfig';
 
 class DashboardNewsList extends Component {
     state = {
@@ -22,19 +24,14 @@ class DashboardNewsList extends Component {
     }
 
     getProductList = () => {
-        const requestOptions = {
-            method: "GET",
-            headers: { "Content-Type": "application/json" },
-        };
-        fetch("http://127.0.0.1:8000/api/admin", requestOptions)
-            .then(async (response) => {
-                const res = await response.json();
-                this.setState({ data: res.data });
-                console.log(res.data);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        axiosConfig.get(api)
+            .then(res => res)
+            .then(
+                res => {
+                    console.log(res + "axios")
+                    this.setState({ data: res.data });
+                }
+            )
     };
 
     render() {
