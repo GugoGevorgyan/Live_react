@@ -99,6 +99,9 @@ const onSubmit = data => to_register(data);
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
                     id="email"
                     label="Email Address"
                     name="email"
@@ -117,7 +120,6 @@ const onSubmit = data => to_register(data);
                     type="password"
                     id="password"
                     autoComplete="current-password"
-                    // inputRef={register}
                 />
               </Grid>
 

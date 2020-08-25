@@ -4,7 +4,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Dashboard from "./components/Dashboard/Dashboard";
 
-import Product from "./components/product";
+// import Product from "./components/product";
 
 import example from "./components/Dashboard/example";
 
@@ -14,7 +14,7 @@ export default class createRoutes extends Component {
     render() {
         return (
             <Router>
-                <Route path='/product' component={Product}/>
+                {/*<Route path='/product' component={Product}/>*/}
                 <Route path="/login" component={Login}/>
                 <Route path="/register" component={Register}/>
                 <Route path="/dashboard" component={Dashboard}/>
