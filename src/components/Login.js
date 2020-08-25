@@ -15,14 +15,34 @@ import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {loginApi as api} from "../Path";
 import axiosConfig from './axiosConfig';
+import { Redirect } from 'react-router';
 
 function to_login(data) {
-
+    // localStorage.removeItem('token');
+    // const requestOptions = {
+    //     method: "POST",
+    //     headers: { "Content-Type": "application/json" },
+    //     body: JSON.stringify({
+    //         id: this.props.match.params.id,
+    //         lang: this.state.language,
+    //     }),
+    // };
+    // fetch(this.props.api_url + "get_news_dashboard", requestOptions)
+    //     .then(async (response) => {
+    //         const data = await response.json();
     axiosConfig.post(api,data)
+
         .then(res => res)
         .then(
             res => {
+                if( res.data.access_token === undefined){
+                    console.log('krkin pordzer');
+                    // return  <Redirect to="/example" /> history.push
+                    return;
+                }
                 localStorage.setItem('token', res.data.access_token);
+                console.log('tok');
+                 return <Redirect to="/example" />;
             }
         )
         .catch((error) => {
@@ -67,11 +87,13 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function SignIn() {
-
+    const  token = localStorage.getItem('token');
     const classes = useStyles();
     const {register, handleSubmit} = useForm();
     const onSubmit = data => to_login(data);
-
+    if (token && token !== 'undefined'){
+        return  <Redirect to="/example" />
+    }
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline/>
@@ -138,6 +160,8 @@ export default function SignIn() {
             <Box mt={8}>
                 <Copyright/>
             </Box>
+            {/*<Redirect to="/example" />*/}
         </Container>
+
     );
 }

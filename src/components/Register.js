@@ -36,7 +36,9 @@ function to_register(data){
       .then(res => res)
   .then(
       res => {
-        localStorage.setItem('token', res.data.access_token)
+        console.log(res);
+        localStorage.setItem('token', res.data.access_token);
+
       }
   )
 }

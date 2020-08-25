@@ -22,9 +22,10 @@ class DashboardNewsList extends Component {
     deleteNews(data) {
         console.log('delete ',data);
     }
-
+    // axios.get(URL, { params:{}, headers: { 'Authorization': AuthStr } })
     getProductList = () => {
-        axiosConfig.get(api)
+        const  token = 'Bearer '+ localStorage.getItem('token');
+        axiosConfig.get(api,{headers:{ 'Authorization': token }})
             .then(res => res)
             .then(
                 res => {

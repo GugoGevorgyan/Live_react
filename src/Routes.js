@@ -8,7 +8,6 @@ import Dashboard from "./components/Dashboard/Dashboard";
 
 import example from "./components/Dashboard/example";
 
-
 export default class createRoutes extends Component {
 
     render() {
