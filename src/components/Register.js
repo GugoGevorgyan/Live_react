@@ -1,4 +1,5 @@
 import React from 'react';
+import { useForm } from "react-hook-form";
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,6 +13,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import axiosConfig from './axiosConfig';
 
 function Copyright() {
   return (
@@ -48,7 +50,16 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp() {
   const classes = useStyles();
+  const { register, handleSubmit } = useForm();
 
+  function onSubmit(data){
+    axiosConfig.post('/api/register', data)
+        .then((response) => {
+          console.log(response)
+        }).catch((error) => {
+      console.log(error)
+    });
+  }
   return (
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -59,29 +70,19 @@ export default function SignUp() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <form className={classes.form} noValidate>
+          <form className={classes.form} noValidate onSubmit={ handleSubmit(onSubmit)}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
-                    autoComplete="fname"
-                    name="firstName"
+                    autoComplete="fullName"
+                    name="fullName"
                     variant="outlined"
                     required
                     fullWidth
-                    id="firstName"
-                    label="First Name"
+                    id="fullName"
+                    label="fullName"
                     autoFocus
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="lastName"
-                    label="Last Name"
-                    name="lastName"
-                    autoComplete="lname"
+                    inputRef={register}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -93,6 +94,79 @@ export default function SignUp() {
                     label="Email Address"
                     name="email"
                     autoComplete="email"
+                    inputRef={register}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="phone"
+                    label="Phone"
+                    name="phone"
+                    autoComplete="phone"
+                    inputRef={register}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="address"
+                    label="address"
+                    name="address"
+                    autoComplete="address"
+                    inputRef={register}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="passport"
+                    label="passport"
+                    name="passport"
+                    autoComplete="passport"
+                    inputRef={register}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="site"
+                    label="site"
+                    name="site"
+                    autoComplete="site"
+                    inputRef={register}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="code"
+                    label="code"
+                    name="code"
+                    autoComplete="code"
+                    inputRef={register}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="role_id"
+                    label="role_id"
+                    name="role_id"
+                    autoComplete="role_id"
+                    inputRef={register}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -105,6 +179,7 @@ export default function SignUp() {
                     type="password"
                     id="password"
                     autoComplete="current-password"
+                    inputRef={register}
                 />
               </Grid>
               <Grid item xs={12}>
