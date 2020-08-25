@@ -6,6 +6,7 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import Product from "./components/product";
 
 export default class createRoutes extends Component {
+
     render() {
         return (
             <Router>

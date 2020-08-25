@@ -1,5 +1,13 @@
 .App {
   text-align: center;
+  background: url("assets/img/pills_les_cuncliffe_fotolia_41089054_m 1.png") no-repeat center center fixed;
+  background-size: cover;
+  height: 100%;
+  overflow: hidden;
+  /*background-image: url("assets/img/pills_les_cuncliffe_fotolia_41089054_m 1.png") ;*/
+  /*background-size: contain;*/
+  /*background-repeat: no-repeat;*/
+  /*background-position: center;*/
 }
 
 .App-logo {

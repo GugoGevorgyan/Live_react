@@ -15,7 +15,7 @@ import Container from '@material-ui/core/Container';
 import { useForm } from "react-hook-form";
 import {registerApi as api} from "../Path";
 import Axios_conf from "../Axios_conf";
-
+import Background from '../assets/img/pills_les_cuncliffe_fotolia_41089054_m 1.png';
 function Copyright() {
   return (
       <Typography variant="body2" color="textSecondary" align="center">
@@ -40,7 +40,11 @@ function to_register(data){
 }
 
 const useStyles = makeStyles((theme) => ({
+  body:{
+    backgroundImage: `url(${"Background"})`,
+  },
   paper: {
+    // backgroundImage: `url(${"Background"})`,
     marginTop: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
