@@ -12,9 +12,15 @@ import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
+import FacebookIcon from '@material-ui/icons/Facebook';
+import InstagramIcon from '@material-ui/icons/Instagram';
+import TwitterIcon from '@material-ui/icons/Twitter';
+import LinkedInIcon from '@material-ui/icons/LinkedIn';
+// import Google from '../assets/img'
+
 // <<<<<<< HEAD
 import {registerApi as api} from "../Path";
+import Container from '@material-ui/core/Container';
 import Background from '../assets/img/pills_les_cuncliffe_fotolia_41089054_m 1.png';
 // =======
 import axiosConfig from './axiosConfig';
@@ -44,27 +50,63 @@ function to_register(data){
 }
 
 const useStyles = makeStyles((theme) => ({
-  body:{
-    backgroundImage: `url(${"Background"})`,
-  },
   paper: {
-    // backgroundImage: `url(${"Background"})`,
-    marginTop: theme.spacing(8),
+    paddingTop: '145px',
+    //marginLeft: '120',
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
+    alignItems: 'center'
   },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
-  },
+
   submit: {
     margin: theme.spacing(3, 0, 2),
+    backgroundImage: 'linear-gradient(90deg, #4856D1 20.94%, #39B0D6 101.76%)',
+    borderRadius: '30px'
   },
+  container: {
+    position: 'relative',
+    right: '30%',
+    height: '100%'
+  },
+  input: {
+    borderBottom: '2px solid transparent',
+    borderImage: 'linear-gradient(90deg, #4856D1 20.94%, #39B0D6 101.76%)',
+    borderImageSlice: '1'
+  },
+  color1: {
+    color: '#4856D1'
+  },
+  color2: {
+    color: '#39B0D6'
+  },
+  check: {
+    display: 'flex',
+    justifyContent: 'center'
+  },
+  signup: {
+    paddingBottom: '20%'
+  },
+  social: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    height: '62px',
+    marginTop: '15px'
+    
+  },
+  button: {
+    backgroundImage: 'linear-gradient(90deg, #4856D1 20.94%, #39B0D6 101.76%)',
+    borderRadius: '50%',
+    height: '65%',
+    minWidth: 0,
+    width: '40px'
+
+  }
+  
+
+
+
+
 }));
 
 export default function SignUp() {
@@ -73,33 +115,31 @@ const{register, handleSubmit} = useForm();
 const onSubmit = data => to_register(data);
 
   return (
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="xs" className={classes.container}>
         <CssBaseline />
         <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign up
+          <Typography component="h1" variant="h5" className={classes.signup}>
+            <span className = {classes.color1}>Sign</span> <span className={classes.color2}>up</span>
           </Typography>
           <form className={classes.form}  onSubmit={ handleSubmit(onSubmit)}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} className = {classes.item}>
                 <TextField
                     autoComplete="fullName"
                     name="fullName"
-                    variant="outlined"
                     required
                     fullWidth
                     id="fullName"
                     label="fullName"
-                    autoFocus
+                    autofocus
                     inputRef={register({ required: true })}
+                    InputProps={{ disableUnderline: true }}
+                    className = {classes.input}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} >
                 <TextField
-                    variant="outlined"
+                    filled
                     required
                     fullWidth
                     id="email"
@@ -107,12 +147,16 @@ const onSubmit = data => to_register(data);
                     name="email"
                     autoComplete="email"
                     inputRef={register({ required: true })}
+                    className = {classes.input}
+                    InputProps={{ disableUnderline: true }}
+
                 />
               </Grid>
-              <Grid item xs={12} >
+              <Grid item xs={12} className = {classes.field}>
                 <TextField
                     inputRef={register({ required: true })}
-                    variant="outlined"
+                    className = {classes.input}
+                    InputProps={{ disableUnderline: true }}
                     required
                     fullWidth
                     name="password"
@@ -123,90 +167,30 @@ const onSubmit = data => to_register(data);
                 />
               </Grid>
 
-              <Grid item xs={12}>
+              <Grid item xs={12} className = {classes.field}>
                 <TextField
                     inputRef={register({ required: true })}
-                    variant="outlined"
+                    className = {classes.input}
+                    InputProps={{ disableUnderline: true }}
                     required
                     fullWidth
-                    name="role_id"
-                    label="role_id"
-                    type="role_id"
-                    id="role_id"
-                    autoComplete="role_id"
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="current-password"
                 />
               </Grid>
-              <Grid item xs={12}>
-                <TextField
-                    inputRef={register({ required: true })}
-                    variant="outlined"
-                    required
-                    fullWidth
-                    name="phone"
-                    label="phone"
-                    type="phone"
-                    id="phone"
-                    autoComplete="phone"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                    inputRef={register({ required: true })}
-                    variant="outlined"
-                    required
-                    fullWidth
-                    name="address"
-                    label="address"
-                    type="address"
-                    id="address"
-                    autoComplete="address"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                    inputRef={register({ required: true })}
-                    variant="outlined"
-                    required
-                    fullWidth
-                    name="passport"
-                    label="passport"
-                    type="passport"
-                    id="passport"
-                    autoComplete="passport"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                    inputRef={register({ required: true })}
-                    variant="outlined"
-                    required
-                    fullWidth
-                    name="site"
-                    label="site"
-                    type="site"
-                    id="site"
-                    autoComplete="site"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                    inputRef={register({ required: true })}
-                    variant="outlined"
-                    required
-                    fullWidth
-                    name="code"
-                    label="code"
-                    type="code"
-                    id="code"
-                    autoComplete="code"
-                />
-              </Grid>
-              <Grid item xs={12}>
+
+              <Grid item xs={12} className={classes.check}>
                 <FormControlLabel
-                    control={<Checkbox value="allowExtraEmails" color="primary" />}
-                    label="I want to receive inspiration, marketing promotions and updates via email."
+                    control={<Checkbox color="primary" />}
+                    label="I agree with the privacy policy"
                 />
               </Grid>
+
+              
+              
             </Grid>
             <Button
                 type="submit"
@@ -217,18 +201,28 @@ const onSubmit = data => to_register(data);
             >
               Sign Up
             </Button>
-            <Grid container justify="flex-end">
-              <Grid item>
-                <Link href="#" variant="body2">
-                  Already have an account? Sign in
-                </Link>
+            <Grid item xs={12} className={classes.social}>
+                <Button className={classes.button}>
+                  <FacebookIcon/>
+                </Button>
+                <Button className={classes.button}>
+                  <InstagramIcon/>
+                </Button>
+                <Button className={classes.button}>
+
+                </Button>
+                <Button className={classes.button}>
+                  <LinkedInIcon/>
+                </Button>
+                <Button className={classes.button}>
+                  <TwitterIcon/>
+                </Button>
               </Grid>
-            </Grid>
+            
           </form>
         </div>
-        <Box mt={5}>
-          <Copyright />
-        </Box>
+
       </Container>
+      
   );
 }
