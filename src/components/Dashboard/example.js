@@ -4,8 +4,11 @@ import { withRouter } from "react-router";
 import MaterialTable from "material-table";
 import {allProd as api} from "../../Path";
 import axiosConfig from '../axiosConfig';
+import Container from "@material-ui/core/Container";
+
 
 class DashboardNewsList extends Component {
+
     state = {
         columns: [
             { title: "id", field: "id" },

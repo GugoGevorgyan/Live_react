@@ -15,9 +15,26 @@ import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {loginApi as api} from "../Path";
 import axiosConfig from './axiosConfig';
-import { Redirect } from 'react-router';
+// import { Redirect } from 'react-router';
+import { useHistory } from "react-router-dom";
 
-function to_login(data) {
+
+// function HomeButton() {
+    // let history = useHistory();
+
+    // function handleClick() {
+    //     history.push("/example");
+    // }
+
+    // return (
+    //     <Button type="button" onClick={handleClick}>
+    //         Go home
+    //     </Button>
+    // );
+// }
+
+function to_login(data,history) {
+
     // localStorage.removeItem('token');
     // const requestOptions = {
     //     method: "POST",
@@ -31,18 +48,15 @@ function to_login(data) {
     //     .then(async (response) => {
     //         const data = await response.json();
     axiosConfig.post(api,data)
-
         .then(res => res)
         .then(
             res => {
                 if( res.data.access_token === undefined){
                     console.log('krkin pordzer');
-                    // return  <Redirect to="/example" /> history.push
                     return;
                 }
                 localStorage.setItem('token', res.data.access_token);
-                console.log('tok');
-                 return <Redirect to="/example" />;
+                history.push("/example");
             }
         )
         .catch((error) => {
@@ -87,13 +101,14 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function SignIn() {
+    let history = useHistory();
     const  token = localStorage.getItem('token');
     const classes = useStyles();
     const {register, handleSubmit} = useForm();
-    const onSubmit = data => to_login(data);
     if (token && token !== 'undefined'){
-        return  <Redirect to="/example" />
+        history.push("/example");
     }
+    const onSubmit = data => to_login(data,history);
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline/>
@@ -160,7 +175,6 @@ export default function SignIn() {
             <Box mt={8}>
                 <Copyright/>
             </Box>
-            {/*<Redirect to="/example" />*/}
         </Container>
 
     );
