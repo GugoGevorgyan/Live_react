@@ -137,7 +137,6 @@ if (token && token !== 'undefined'){
     history.push('/example');
 }
 function onSubmit(){
-    // console.log(values)
     handleLogin(values, history);
 }
 // const onSubmit = values => {
