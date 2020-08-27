@@ -1,14 +1,11 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-// import { withRouter } from "react-router";
+import { withRouter } from "react-router";
 import MaterialTable from "material-table";
 import {allProd as api} from "../../Path";
 import axiosConfig from '../axiosConfig';
 import Container from "@material-ui/core/Container";
-
-
 class DashboardNewsList extends Component {
-
     state = {
         columns: [
             { title: "id", field: "id" },
@@ -17,17 +14,9 @@ class DashboardNewsList extends Component {
         ],
         data: [],
     };
-
     componentDidMount() {
         this.getProductList();
     }
-
-
-    // deleteNews(data) {
-    //     console.log('delete ',data);
-    // }
-
-
     deleteNews(data) {
         console.log('delete ',data);
     }
@@ -42,14 +31,11 @@ class DashboardNewsList extends Component {
                     this.setState({ data: res.data });
                 }
             )
-
     };
-
     render() {
         const onGoModify = (id) => {
             console.log('ghvhv');
         };
-
         return (
             <div >
                 <MaterialTable
@@ -69,7 +55,6 @@ class DashboardNewsList extends Component {
                         onRowDelete: (oldData) =>
                             new Promise((resolve) => {
                                 this.deleteNews(oldData);
-
                                 setTimeout(() => {
                                     resolve();
                                     this.setState((prevState) => {
@@ -88,10 +73,8 @@ class DashboardNewsList extends Component {
         );
     }
 }
-
-// DashboardNewsList.propTypes = {
-//     history: PropTypes.object,
-//     api_url: PropTypes.string.isRequired,
-// };
-
-export default DashboardNewsList;
+DashboardNewsList.propTypes = {
+    history: PropTypes.object,
+    api_url: PropTypes.string.isRequired,
+};
+export default withRouter(DashboardNewsList);

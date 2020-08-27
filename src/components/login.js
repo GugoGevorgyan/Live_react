@@ -20,6 +20,8 @@ import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import CircleCheckedFilled from '@material-ui/icons/CheckCircle';
 import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
+import {loginApi as api} from "../Path"
+import {useHistory} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     authCover: {
@@ -69,13 +71,13 @@ const useStyles = makeStyles((theme) => ({
     },
     checkboxStyle:{
         marginTop: '79px',
-        color: '#4856D1',
+        color: '#4856d1',
 
     },
     forgot:{
         display:'flex',
         justifyContent: 'flex-end',
-        marginTop: '94px',
+        marginTop: '50px',
 
     },
     forgotStyle:{
@@ -90,7 +92,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexFlow: 'row',
         justifyContent: 'space-between',
-        marginTop: '97px',
+        marginTop: '40px',
     },
     margin: {
         margin: theme.spacing(1),
@@ -101,20 +103,47 @@ const useStyles = makeStyles((theme) => ({
     },
 
 }));
+function handleLogin(data,history) {
+    axiosConfig.post(api,data)
+        .then(res => res)
+        .then(
+            res => {
+                if( res.data.access_token === undefined){
+                    console.log('krkin pordzer');
+                    return;
+                }
+                localStorage.setItem('token', res.data.access_token);
+                history.push("/example");
+            }
+        )
+        .catch((error) => {
+            console.error('Error:', error);
+        });
 
+
+    // axiosConfig.post('/api/login', values)
+    //     .then((response) => {
+    //         console.log(response)
+    //     }).catch((error) => {
+    //     console.log(error)
+    // });
+}
 
 export default function SignIn() {
     const classes = useStyles();
-
-
-    function handleLogin() {
-        axiosConfig.post('/api/login', values)
-            .then((response) => {
-                console.log(response)
-            }).catch((error) => {
-            console.log(error)
-        });
-    }
+const history = useHistory();
+const token = localStorage.getItem('token');
+if (token && token !== 'undefined'){
+    history.push('/example');
+}
+function onSubmit(){
+    // console.log(values)
+    handleLogin(values, history);
+}
+// const onSubmit = values => {
+//     console.log(values);
+//    return  handleLogin(values, history)
+// };
 
     const [values, setValues] = React.useState({
         email: '',
@@ -192,7 +221,7 @@ export default function SignIn() {
                                 </Grid>
                                 <Grid item xs={12}>
                                     <div>
-                                        <Button type="button" onClick={handleLogin} variant="contained" fullWidth color="primary" className={classes.buttonStyle}>Sign in</Button>
+                                        <Button type="button" onClick={onSubmit} variant="contained" fullWidth color="primary" className={classes.buttonStyle}>Sign in</Button>
                                     </div>
                                 </Grid>
                                 <Grid item xs={12}>
@@ -215,6 +244,5 @@ export default function SignIn() {
                 </Grid>
             </Grid>
         </div>
-
     );
 }

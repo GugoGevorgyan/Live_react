@@ -41,14 +41,19 @@ function Copyright() {
 
 function to_register(data){
     axiosConfig.post(api,data)
-      .then(res => res)
+
+      .then(res => res
+      )
   .then(
       res => {
-        console.log(res);
+        console.log(res, 'myRespons');
         localStorage.setItem('token', res.data.access_token);
-
       }
-  )
+  ).catch(error => {
+     // let err =  error.json(error.responseText);
+     //  console.log(err,'fff');
+      console.log(error.data.ValidationException, 'err')
+    });
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -133,7 +138,7 @@ const onSubmit = data => to_register(data);
                     fullWidth
                     id="fullName"
                     label="fullName"
-                    autofocus
+                    autoFocus
                     inputRef={register({ required: true })}
                     InputProps={{ disableUnderline: true }}
                     className = {classes.input}
@@ -176,8 +181,8 @@ const onSubmit = data => to_register(data);
                     InputProps={{ disableUnderline: true }}
                     required
                     fullWidth
-                    name="password"
-                    label="Password"
+                    name="password_confirmation"
+                    label="password"
                     type="password"
                     id="password"
                     autoComplete="current-password"
@@ -211,7 +216,7 @@ const onSubmit = data => to_register(data);
                   <InstagramIcon/>
                 </Button>
                 <Button className={classes.button}>
-                    <google/>
+
                 </Button>
                 <Button className={classes.button}>
                   <LinkedInIcon/>
