@@ -1,7 +1,15 @@
 .App {
   text-align: center;
 }
-
+div > .MuiInput-underline:before{
+  border-bottom:none;
+}
+div > .MuiInput-underline:hover:not(.Mui-disabled):before{
+  border-bottom:none;
+}
+div > .MuiInput-underline:after{
+  border-bottom:none;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;

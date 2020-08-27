@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { withRouter } from "react-router";
+// import { withRouter } from "react-router";
 import MaterialTable from "material-table";
 
 class DashboardNewsList extends Component {
@@ -17,9 +17,9 @@ class DashboardNewsList extends Component {
         this.getProductList();
     }
 
-    deleteNews(data) {
-        console.log('delete ',data);
-    }
+    // deleteNews(data) {
+    //     console.log('delete ',data);
+    // }
 
     getProductList = () => {
         const requestOptions = {
@@ -29,8 +29,8 @@ class DashboardNewsList extends Component {
         fetch("http://127.0.0.1:8000/api/admin", requestOptions)
             .then(async (response) => {
                 const res = await response.json();
-                this.setState({ data: res.data });
-                console.log(res.data);
+                this.setState({ data: res });
+                console.log(res);
             })
             .catch((err) => {
                 console.log(err);
@@ -39,7 +39,7 @@ class DashboardNewsList extends Component {
 
     render() {
         const onGoModify = (id) => {
-           console.log('ghvhv');
+            console.log('ghvhv');
         };
 
         return (
@@ -81,9 +81,9 @@ class DashboardNewsList extends Component {
     }
 }
 
-DashboardNewsList.propTypes = {
-    history: PropTypes.object,
-    api_url: PropTypes.string.isRequired,
-};
+// DashboardNewsList.propTypes = {
+//     history: PropTypes.object,
+//     api_url: PropTypes.string.isRequired,
+// };
 
-export default withRouter(DashboardNewsList);
+export default DashboardNewsList;
