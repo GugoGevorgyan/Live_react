@@ -6,6 +6,7 @@ import {allProd as api} from "../../Path";
 import axiosConfig from '../axiosConfig';
 import Container from "@material-ui/core/Container";
 class DashboardNewsList extends Component {
+
     state = {
         columns: [
             { title: "id", field: "id" },
@@ -15,6 +16,11 @@ class DashboardNewsList extends Component {
         data: [],
     };
     componentDidMount() {
+        const MyToken = localStorage.getItem('token');
+        console.log( localStorage);
+        if (!MyToken ){
+            this.props.history.push('/login');
+        }
         this.getProductList();
     }
     deleteNews(data) {

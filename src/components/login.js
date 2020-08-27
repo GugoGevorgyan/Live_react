@@ -20,7 +20,7 @@ import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import CircleCheckedFilled from '@material-ui/icons/CheckCircle';
 import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
-import {loginApi as api} from "../Path"
+import {loginApi as api} from "../Path";
 import {useHistory} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
