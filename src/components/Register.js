@@ -50,9 +50,7 @@ function to_register(data){
         localStorage.setItem('token', res.data.access_token);
       }
   ).catch(error => {
-     // let err =  error.json(error.responseText);
-     //  console.log(err,'fff');
-      console.log(error.data.ValidationException, 'err')
+      console.log(error.response.data.errors,'mes')
     });
 }
 
