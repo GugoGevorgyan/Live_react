@@ -16,7 +16,7 @@ import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
 import Background from "./assets/img/pills_les_cuncliffe_fotolia_41089054_m 1.png";
-
+import back from "../images/general.png";
 import { registerApi as api } from "../Path";
 import Container from "@material-ui/core/Container";
 import Captcha from "../components/Dashboard/Captcha";
@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
   },
   container: {
-    backgroundImage: `url(${Background})`,
+    backgroundImage: `url(${back})`,
     position: "relative",
     right: "30%",
     height: "100%",
@@ -110,10 +110,12 @@ const useStyles = makeStyles((theme) => ({
     width: "40px",
   },
   test: {
-    height: "100%",
     width: "100%",
-
-    zIndex: 1,
+    height: "100%",
+    minHeight: "100vh",
+    backgroundImage: `url(${back})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
   },
 }));
 

@@ -18,7 +18,7 @@ export default class createRoutes extends Component {
         <Route path="/register" component={Register} />
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/example" component={example} />
-        <Route path="/register-company" component={RegisterCompany}></Route>
+        <Route path="/registerCompany" component={RegisterCompany} />
       </Router>
     );
   }
