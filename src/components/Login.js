@@ -48,6 +48,7 @@ function to_login(data,history) {
     //     .then(async (response) => {
     //         const data = await response.json();
     axiosConfig.post(api,data)
+
         .then(res => res)
         .then(
             res => {
