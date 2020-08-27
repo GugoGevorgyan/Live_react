@@ -13,7 +13,18 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import {registerApi as api} from "../Path"
+import FacebookIcon from '@material-ui/icons/Facebook';
+import InstagramIcon from '@material-ui/icons/Instagram';
+import TwitterIcon from '@material-ui/icons/Twitter';
+import LinkedInIcon from '@material-ui/icons/LinkedIn';
+import google from '../assets/icons/icon_facebook.png'
+
+// import Background from '../assets/img/pills_les_cuncliffe_fotolia_41089054_m 1.png';
+
+
 import axiosConfig from './axiosConfig';
+
 
 function Copyright() {
   return (
@@ -28,150 +39,126 @@ function Copyright() {
   );
 }
 
+function to_register(data){
+    axiosConfig.post(api,data)
+      .then(res => res)
+  .then(
+      res => {
+        console.log(res);
+        localStorage.setItem('token', res.data.access_token);
+
+      }
+  )
+}
+
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(8),
+    paddingTop: '145px',
+    //marginLeft: '120',
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
+    alignItems: 'center'
   },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
-  },
+
   submit: {
     margin: theme.spacing(3, 0, 2),
+    backgroundImage: 'linear-gradient(90deg, #4856D1 20.94%, #39B0D6 101.76%)',
+    borderRadius: '30px'
   },
+  container: {
+    position: 'relative',
+    right: '30%',
+    height: '100%'
+  },
+  input: {
+    borderBottom: '2px solid transparent',
+    borderImage: 'linear-gradient(90deg, #4856D1 20.94%, #39B0D6 101.76%)',
+    borderImageSlice: '1'
+  },
+  color1: {
+    color: '#4856D1'
+  },
+  color2: {
+    color: '#39B0D6'
+  },
+  check: {
+    display: 'flex',
+    justifyContent: 'center'
+  },
+  signup: {
+    paddingBottom: '20%'
+  },
+  social: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    height: '62px',
+    marginTop: '15px'
+    
+  },
+  button: {
+    backgroundImage: 'linear-gradient(90deg, #4856D1 20.94%, #39B0D6 101.76%)',
+    borderRadius: '50%',
+    height: '65%',
+    minWidth: 0,
+    width: '40px'
+
+  }
+  
+
+
+
+
 }));
 
 export default function SignUp() {
   const classes = useStyles();
-  const { register, handleSubmit } = useForm();
+const{register, handleSubmit} = useForm();
+const onSubmit = data => to_register(data);
 
-  function onSubmit(data){
-    axiosConfig.post('/api/register', data)
-        .then((response) => {
-          console.log(response)
-        }).catch((error) => {
-      console.log(error)
-    });
-  }
   return (
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="xs" className={classes.container}>
         <CssBaseline />
         <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign up
+          <Typography component="h1" variant="h5" className={classes.signup}>
+            <span className = {classes.color1}>Sign</span> <span className={classes.color2}>up</span>
           </Typography>
-          <form className={classes.form} noValidate onSubmit={ handleSubmit(onSubmit)}>
+          <form className={classes.form}  onSubmit={ handleSubmit(onSubmit)}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} className = {classes.item}>
                 <TextField
                     autoComplete="fullName"
                     name="fullName"
-                    variant="outlined"
                     required
                     fullWidth
                     id="fullName"
                     label="fullName"
-                    autoFocus
-                    inputRef={register}
+                    autofocus
+                    inputRef={register({ required: true })}
+                    InputProps={{ disableUnderline: true }}
+                    className = {classes.input}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} >
                 <TextField
-                    variant="outlined"
+                    filled
                     required
                     fullWidth
                     id="email"
                     label="Email Address"
                     name="email"
                     autoComplete="email"
-                    inputRef={register}
+                    inputRef={register({ required: true })}
+                    className = {classes.input}
+                    InputProps={{ disableUnderline: true }}
+
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} className = {classes.field}>
                 <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="phone"
-                    label="Phone"
-                    name="phone"
-                    autoComplete="phone"
-                    inputRef={register}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="address"
-                    label="address"
-                    name="address"
-                    autoComplete="address"
-                    inputRef={register}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="passport"
-                    label="passport"
-                    name="passport"
-                    autoComplete="passport"
-                    inputRef={register}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="site"
-                    label="site"
-                    name="site"
-                    autoComplete="site"
-                    inputRef={register}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="code"
-                    label="code"
-                    name="code"
-                    autoComplete="code"
-                    inputRef={register}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="role_id"
-                    label="role_id"
-                    name="role_id"
-                    autoComplete="role_id"
-                    inputRef={register}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                    variant="outlined"
+                    inputRef={register({ required: true })}
+                    className = {classes.input}
+                    InputProps={{ disableUnderline: true }}
                     required
                     fullWidth
                     name="password"
@@ -179,15 +166,33 @@ export default function SignUp() {
                     type="password"
                     id="password"
                     autoComplete="current-password"
-                    inputRef={register}
                 />
               </Grid>
-              <Grid item xs={12}>
+
+              <Grid item xs={12} className = {classes.field}>
+                <TextField
+                    inputRef={register({ required: true })}
+                    className = {classes.input}
+                    InputProps={{ disableUnderline: true }}
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="current-password"
+                />
+              </Grid>
+
+              <Grid item xs={12} className={classes.check}>
                 <FormControlLabel
-                    control={<Checkbox value="allowExtraEmails" color="primary" />}
-                    label="I want to receive inspiration, marketing promotions and updates via email."
+                    control={<Checkbox color="primary" />}
+                    label="I agree with the privacy policy"
                 />
               </Grid>
+
+              
+              
             </Grid>
             <Button
                 type="submit"
@@ -198,18 +203,28 @@ export default function SignUp() {
             >
               Sign Up
             </Button>
-            <Grid container justify="flex-end">
-              <Grid item>
-                <Link href="#" variant="body2">
-                  Already have an account? Sign in
-                </Link>
+            <Grid item xs={12} className={classes.social}>
+                <Button className={classes.button}>
+                  <FacebookIcon/>
+                </Button>
+                <Button className={classes.button}>
+                  <InstagramIcon/>
+                </Button>
+                <Button className={classes.button}>
+                    <google/>
+                </Button>
+                <Button className={classes.button}>
+                  <LinkedInIcon/>
+                </Button>
+                <Button className={classes.button}>
+                  <TwitterIcon/>
+                </Button>
               </Grid>
-            </Grid>
+            
           </form>
         </div>
-        <Box mt={5}>
-          <Copyright />
-        </Box>
+
       </Container>
+      
   );
 }

@@ -2,8 +2,13 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 // import { withRouter } from "react-router";
 import MaterialTable from "material-table";
+import {allProd as api} from "../../Path";
+import axiosConfig from '../axiosConfig';
+import Container from "@material-ui/core/Container";
+
 
 class DashboardNewsList extends Component {
+
     state = {
         columns: [
             { title: "id", field: "id" },
@@ -17,24 +22,27 @@ class DashboardNewsList extends Component {
         this.getProductList();
     }
 
+
     // deleteNews(data) {
     //     console.log('delete ',data);
     // }
 
+
+    deleteNews(data) {
+        console.log('delete ',data);
+    }
+    // axios.get(URL, { params:{}, headers: { 'Authorization': AuthStr } })
     getProductList = () => {
-        const requestOptions = {
-            method: "GET",
-            headers: { "Content-Type": "application/json" },
-        };
-        fetch("http://127.0.0.1:8000/api/admin", requestOptions)
-            .then(async (response) => {
-                const res = await response.json();
-                this.setState({ data: res });
-                console.log(res);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        const  token = 'Bearer '+ localStorage.getItem('token');
+        axiosConfig.get(api,{headers:{ 'Authorization': token }})
+            .then(res => res)
+            .then(
+                res => {
+                    console.log(res + "axios")
+                    this.setState({ data: res.data });
+                }
+            )
+
     };
 
     render() {
