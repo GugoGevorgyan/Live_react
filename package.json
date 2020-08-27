@@ -14,8 +14,13 @@
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+<<<<<<< HEAD
     "react-hook-form": "^6.4.1",
     "react-recaptcha-google": "^1.1.1",
+=======
+    "react-hook-form": "^6.5.3",
+    "react-router": "^5.2.0",
+>>>>>>> 6d90866ef90ebe2d40990683e91331f75654cc76
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "recharts": "^1.8.5"

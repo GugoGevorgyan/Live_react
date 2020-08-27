@@ -17,14 +17,21 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
 import Background from "./assets/img/pills_les_cuncliffe_fotolia_41089054_m 1.png";
 
-// <<<<<<< HEAD
+
 import { registerApi as api } from "../Path";
 import Container from "@material-ui/core/Container";
 import Captcha from "../components/Dashboard/Captcha";
-// =======
+
 import axiosConfig from "./axiosConfig";
 
-// >>>>>>> 8c63d6ba816fe4358024af82d15cc1ab13fbc300
+import Link from '@material-ui/core/Link';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+
+
+import Container from '@material-ui/core/Container';
+
+
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -38,12 +45,20 @@ function Copyright() {
   );
 }
 
-function to_register(data) {
-  axiosConfig
-    .post(api, data)
-    .then((res) => res)
-    .then((res) => {
-      localStorage.setItem("token", res.data.access_token);
+function to_register(data){
+    axiosConfig.post(api,data)
+
+      .then(res => res
+      )
+  .then(
+      res => {
+        console.log(res, 'myRespons');
+        localStorage.setItem('token', res.data.access_token);
+      }
+  ).catch(error => {
+     // let err =  error.json(error.responseText);
+     //  console.log(err,'fff');
+      console.log(error.data.ValidationException, 'err')
     });
 }
 
@@ -158,6 +173,7 @@ export default function SignUp() {
           </Typography>
           <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
             <Grid container spacing={2}>
+
               <Grid item xs={12}>
                 <FormControl className={classes.input} fullWidth>
                   <InputLabel required htmlFor="fullName" xs={12}>
@@ -203,6 +219,7 @@ export default function SignUp() {
                   />
                 </FormControl>
               </Grid>
+
               <Grid item xs={12}>
                 <FormControl className={classes.input} fullWidth>
                   <InputLabel required htmlFor="password-repeat">

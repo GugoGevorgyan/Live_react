@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router";
 import MaterialTable from "material-table";
-
+import {allProd as api} from "../../Path";
+import axiosConfig from '../axiosConfig';
+import Container from "@material-ui/core/Container";
 class DashboardNewsList extends Component {
     state = {
         columns: [
@@ -12,36 +14,28 @@ class DashboardNewsList extends Component {
         ],
         data: [],
     };
-
     componentDidMount() {
         this.getProductList();
     }
-
     deleteNews(data) {
         console.log('delete ',data);
     }
-
+    // axios.get(URL, { params:{}, headers: { 'Authorization': AuthStr } })
     getProductList = () => {
-        const requestOptions = {
-            method: "GET",
-            headers: { "Content-Type": "application/json" },
-        };
-        fetch("http://127.0.0.1:8000/api/admin", requestOptions)
-            .then(async (response) => {
-                const res = await response.json();
-                this.setState({ data: res.data });
-                console.log(res.data);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        const  token = 'Bearer '+ localStorage.getItem('token');
+        axiosConfig.get(api,{headers:{ 'Authorization': token }})
+            .then(res => res)
+            .then(
+                res => {
+                    console.log(res + "axios")
+                    this.setState({ data: res.data });
+                }
+            )
     };
-
     render() {
         const onGoModify = (id) => {
-           console.log('ghvhv');
+            console.log('ghvhv');
         };
-
         return (
             <div >
                 <MaterialTable
@@ -61,7 +55,6 @@ class DashboardNewsList extends Component {
                         onRowDelete: (oldData) =>
                             new Promise((resolve) => {
                                 this.deleteNews(oldData);
-
                                 setTimeout(() => {
                                     resolve();
                                     this.setState((prevState) => {
@@ -80,10 +73,8 @@ class DashboardNewsList extends Component {
         );
     }
 }
-
 DashboardNewsList.propTypes = {
     history: PropTypes.object,
     api_url: PropTypes.string.isRequired,
 };
-
 export default withRouter(DashboardNewsList);
