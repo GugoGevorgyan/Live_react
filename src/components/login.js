@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -95,29 +95,21 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: '10px',
   },
 }));
-function handleLogin(data,history) {
-  axiosConfig.post(api,data)
-      .then(res => res)
-      .then(
-          res => {
-            if( res.data.access_token === undefined){
-              console.log('krkin pordzer');
-              return;
-            }
-            localStorage.setItem('token', res.data.access_token);
-            history.push("/login");
-          }
-      )
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-  // axiosConfig.post('/api/login', values)
-  //     .then((response) => {
-  //         console.log(response)
-  //     }).catch((error) => {
-  //     console.log(error)
-  // });
-}
+
+  // function handleLogin(data,history) {
+  //   axiosConfig.post('/api/login', data)
+  //       .then((res) => {
+  //         console.log(res.data)
+  //         if( res.data.access_token != null){
+  //           localStorage.setItem('token', res.data.access_token);
+  //           history.push("/login");
+  //         }
+  //       }).catch((error) => {
+  //       console.log(error, 'Something is wrong')
+  //   });
+  // }
+
+
 export default function SignIn() {
   const classes = useStyles();
   const history = useHistory();
@@ -126,23 +118,39 @@ export default function SignIn() {
     history.push('/example');
   }
   function onSubmit(){
-    // console.log(values)
     handleLogin(values, history);
   }
-// const onSubmit = values => {
-//     console.log(values);
-//    return  handleLogin(values, history)
-// };
+
+  function handleLogin(data,history) {
+    axiosConfig.post('/api/login', data)
+        .then((res) => {
+          // console.log(res.data)
+          console.log(res.data.message);
+          setError( res.data.message)
+          // console.log(error)
+
+          if( res.data.access_token != null){
+            localStorage.setItem('token', res.data.access_token);
+            history.push("/login");
+          }
+        }).catch((error) => {
+          console.log(error, 'Something is wrong')
+        });
+  }
+
+  const [error, setError] = useState("aaa")
+
   const [values, setValues] = React.useState({
     email: '',
     password: '',
     showPassword: false,
   });
+
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
   const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
+    setValues({ ...values, showPassword: !values.password });
   };
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
@@ -221,6 +229,7 @@ export default function SignIn() {
                       <Avatar alt="Remy Sharp" src="../../images/google.png" />
                       <Avatar alt="Remy Sharp" src="../../images/linkedin.png" />
                       <Avatar alt="Remy Sharp" src="../../images/instagram.png" />
+                      <p>{error}</p>
                     </div>
                   </Grid>
                 </Grid>
