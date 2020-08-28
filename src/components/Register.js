@@ -1,229 +1,264 @@
 import React from 'react';
-import { useForm } from "react-hook-form";
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import {makeStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import {registerApi as api} from "../Path"
-import FacebookIcon from '@material-ui/icons/Facebook';
-import InstagramIcon from '@material-ui/icons/Instagram';
-import TwitterIcon from '@material-ui/icons/Twitter';
-import LinkedInIcon from '@material-ui/icons/LinkedIn';
-import google from '../assets/icons/icon_facebook.png'
-
-// import Background from '../assets/img/pills_les_cuncliffe_fotolia_41089054_m 1.png';
-
-
+import back from '../images/general.png';
 import axiosConfig from './axiosConfig';
-
-
-function Copyright() {
-  return (
-      <Typography variant="body2" color="textSecondary" align="center">
-        {'Copyright © '}
-        <Link color="inherit" href="https://material-ui.com/">
-          Your Website
-        </Link>{' '}
-        {new Date().getFullYear()}
-        {'.'}
-      </Typography>
-  );
-}
-
-function to_register(data){
-    axiosConfig.post(api,data)
-
-      .then(res => res
-      )
-  .then(
-      res => {
-        console.log(res, 'myRespons');
-        localStorage.setItem('token', res.data.access_token);
-      }
-  ).catch(error => {
-      console.log(error.response.data.errors,'mes')
-    });
-}
-
+import FormControl from '@material-ui/core/FormControl';
+import clsx from 'clsx';
+import InputLabel from '@material-ui/core/InputLabel';
+import Input from '@material-ui/core/Input';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import IconButton from '@material-ui/core/IconButton';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import CircleCheckedFilled from '@material-ui/icons/CheckCircle';
+import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
+import {registerApi as api} from "../Path"
+import {useHistory} from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
-  paper: {
-    paddingTop: '145px',
-    //marginLeft: '120',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center'
+  authCover: {
+    width: '100%',
+    height: '100%',
+    minHeight: '100vh',
+    backgroundImage: `url(${back})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
   },
-
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-    backgroundImage: 'linear-gradient(90deg, #4856D1 20.94%, #39B0D6 101.76%)',
-    borderRadius: '30px'
+  authContainer: {
+    maxWidth: '530px',
+    paddingTop: '110px',
+    paddingLeft: '112px',
   },
-  container: {
-    position: 'relative',
-    right: '30%',
-    height: '100%'
-  },
-  input: {
-    borderBottom: '2px solid transparent',
-    borderImage: 'linear-gradient(90deg, #4856D1 20.94%, #39B0D6 101.76%)',
-    borderImageSlice: '1'
+  authTitle: {
+    fontFamily: 'Roboto',
+    fontStyle: 'normal',
+    fontWeight: '500',
+    lineHeight: '26px',
+    fontSize: '22px',
+    color: '#4856D1',
   },
   color1: {
-    color: '#4856D1'
+    color: "#4856D1",
   },
   color2: {
-    color: '#39B0D6'
+    color: "#39B0D6",
   },
-  check: {
-    display: 'flex',
-    justifyContent: 'center'
+  authInputStyle: {
+    width: '100%',
+    marginBottom: '1rem',
+    borderBottom: '2px solid transparent',
+    borderImage: 'linear-gradient(90deg, #4856D1 20.94%, #39B0D6 101.76%)',
+    borderImageSlice: '1',
   },
-  signup: {
-    paddingBottom: '20%'
+  text: {
+    fontFamily: 'Roboto',
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+    fontSize: '18px',
+    lineHeight: '21px',
+    color: 'blue',
   },
-  social: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    height: '62px',
-    marginTop: '15px'
-    
-  },
-  button: {
+  buttonStyle:{
+    marginTop: '78px',
     backgroundImage: 'linear-gradient(90deg, #4856D1 20.94%, #39B0D6 101.76%)',
-    borderRadius: '50%',
-    height: '65%',
-    minWidth: 0,
-    width: '40px'
-
-  }
-
+    borderRadius: '30px',
+    width: '100%'
+  },
+  checkboxStyle:{
+    marginTop: '79px',
+    color: '#4856d1',
+  },
+  forgot:{
+    display:'flex',
+    justifyContent: 'flex-end',
+    marginTop: '50px',
+  },
+  forgotStyle:{
+    fontFamily: 'Roboto',
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+    fontSize: '18px',
+    lineHeight: '21px',
+    color:'#4956D2',
+  },
+  photos: {
+    display: 'flex',
+    flexFlow: 'row',
+    justifyContent: 'space-between',
+    marginTop: '40px',
+  },
+  margin: {
+    margin: theme.spacing(1),
+  },
+  emailinputstyle: {
+    marginLeft: '10px',
+  },
 }));
-
-export default function SignUp() {
+function handleLogin(data,history) {
+  axiosConfig.post(api,data)
+      .then(res => res)
+      .then(res => {
+            if( res.data.access_token === undefined){
+              console.log('krkin pordzer');
+              return;
+            }
+            localStorage.setItem('token', res.data.access_token);
+            history.push("/login");
+          }
+      ).catch((error) => {
+    console.log(error.data.ValidationException, "err");
+      });
+}
+export default function SignIn() {
   const classes = useStyles();
-const{register, handleSubmit} = useForm();
-const onSubmit = data => to_register(data);
-
+  const history = useHistory();
+  const token = localStorage.getItem('token');
+  if (token && token !== 'undefined'){
+    history.push('/example');
+  }
+  function onSubmit(){
+    handleLogin(values, history);
+  }
+  const [values, setValues] = React.useState({
+    email: '',
+    password: '',
+    password_confirmation:'',
+    showPassword: false,
+  });
+  const handleChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
+  };
+  const handleClickShowPassword = () => {
+    setValues({ ...values, showPassword: !values.showPassword });
+  };
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
   return (
-      <Container component="main" maxWidth="xs" className={classes.container}>
-        <CssBaseline />
-        <div className={classes.paper}>
-          <Typography component="h1" variant="h5" className={classes.signup}>
-            <span className = {classes.color1}>Sign</span> <span className={classes.color2}>up</span>
-          </Typography>
-          <form className={classes.form}  onSubmit={ handleSubmit(onSubmit)}>
-            <Grid container spacing={2}>
-              <Grid item xs={12} className = {classes.item}>
-                <TextField
-                    autoComplete="fullName"
-                    name="fullName"
-                    required
-                    fullWidth
-                    id="fullName"
-                    label="fullName"
-                    autoFocus
-                    inputRef={register({ required: true })}
-                    InputProps={{ disableUnderline: true }}
-                    className = {classes.input}
-                />
-              </Grid>
-              <Grid item xs={12} >
-                <TextField
-                    filled
-                    required
-                    fullWidth
-                    id="email"
-                    label="Email Address"
-                    name="email"
-                    autoComplete="email"
-                    inputRef={register({ required: true })}
-                    className = {classes.input}
-                    InputProps={{ disableUnderline: true }}
+      <div className={classes.authCover}>
+        <Grid container>
+          <Grid item lg={4} md={6} >
+            <div className={classes.authContainer}>
+              <Typography variant="body2" component="h1" className={classes.authTitle}>
+                <span className={classes.color1}>Sign</span>{" "}
+                <span className={classes.color2}>up</span>
+              </Typography>
+              <form className={classes.root} noValidate autoComplete="off">
+                <Grid container>
 
-                />
-              </Grid>
-              <Grid item xs={12} className = {classes.field}>
-                <TextField
-                    inputRef={register({ required: true })}
-                    className = {classes.input}
-                    InputProps={{ disableUnderline: true }}
-                    required
-                    fullWidth
-                    name="password"
-                    label="Password"
-                    type="password"
-                    id="password"
-                    autoComplete="current-password"
-                />
-              </Grid>
+                  <Grid item xs={12}>
+                    <div className={classes.emailinputstyle}>
+                      <TextField
+                          id="fullName"
+                          label="fullName"
+                          name="fullName"
+                          InputProps={{ disableUnderline: true }}
+                          className={classes.authInputStyle}
+                          autoComplete="fullName"
+                          value={values.email}
+                          onChange={handleChange('email')}
+                      />
+                    </div>
+                  </Grid>
 
-              <Grid item xs={12} className = {classes.field}>
-                <TextField
-                    inputRef={register({ required: true })}
-                    className = {classes.input}
-                    InputProps={{ disableUnderline: true }}
-                    required
-                    fullWidth
-                    name="password_confirmation"
-                    label="password"
-                    type="password"
-                    id="password"
-                    autoComplete="current-password"
-                />
-              </Grid>
+                  <Grid item xs={12}>
+                    <div className={classes.emailinputstyle}>
+                      <TextField
+                          id="email"
+                          label="email"
+                          name="email"
+                          InputProps={{ disableUnderline: true }}
+                          className={classes.authInputStyle}
+                          autoComplete="email"
+                          value={values.fullName}
+                          onChange={handleChange('email')}
+                      />
+                    </div>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <div>
+                      <FormControl className={clsx(classes.margin, classes.authInputStyle)} >
+                        <InputLabel htmlFor="standard-adornment-password">Password*</InputLabel>
+                        <Input
+                            id="standard-adornment-password"
+                            type={values.showPassword ? 'text' : 'password'}
+                            value={values.password}
+                            onChange={handleChange('password')}
+                            endAdornment={
+                              <InputAdornment position="end" >
+                                <IconButton
+                                    aria-label="toggle password visibility"
+                                    onClick={handleClickShowPassword}
+                                    onMouseDown={handleMouseDownPassword}
+                                >
+                                  {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                                </IconButton>
+                              </InputAdornment>
+                            }
+                        />
+                      </FormControl>
 
-              <Grid item xs={12} className={classes.check}>
-                <FormControlLabel
-                    control={<Checkbox color="primary" />}
-                    label="I agree with the privacy policy"
-                />
-              </Grid>
+                      <FormControl className={clsx(classes.margin, classes.authInputStyle)} >
+                        <InputLabel htmlFor="standard-adornment-password">Password*</InputLabel>
+                        <Input
+                            id="standard-adornment-password"
+                            type={values.password_confirmation ? 'text' : 'password'}
+                            value={values.password_confirmation}
+                            onChange={handleChange('password')}
+                            endAdornment={
+                              <InputAdornment position="end" >
+                                <IconButton
+                                    aria-label="toggle password visibility"
+                                    onClick={handleClickShowPassword}
+                                    onMouseDown={handleMouseDownPassword}
+                                >
+                                  {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                                </IconButton>
+                              </InputAdornment>
+                            }
+                        />
+                      </FormControl>
 
-              
-              
-            </Grid>
-            <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-            >
-              Sign Up
-            </Button>
-            <Grid item xs={12} className={classes.social}>
-                <Button className={classes.button}>
-                  <FacebookIcon/>
-                </Button>
-                <Button className={classes.button}>
-                  <InstagramIcon/>
-                </Button>
-                <Button className={classes.button}>
 
-                </Button>
-                <Button className={classes.button}>
-                  <LinkedInIcon/>
-                </Button>
-                <Button className={classes.button}>
-                  <TwitterIcon/>
-                </Button>
-              </Grid>
-            
-          </form>
-        </div>
-
-      </Container>
-      
+                    </div>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <div>
+                      <FormControlLabel
+                          value="end"
+                          control={<Checkbox color="primary" icon={<CircleUnchecked />} checkedIcon={<CircleCheckedFilled />}/>}
+                          label="I want to receive updates via email"
+                          labelPlacement="end"
+                          className={classes.checkboxStyle}
+                      />
+                    </div>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <div>
+                      <Button type="button" onClick={onSubmit} variant="contained" fullWidth color="primary" className={classes.buttonStyle}>Sign up</Button>
+                    </div>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <div className={classes.photos}>
+                      <Avatar alt="Remy Sharp" src="../../images/facebook.png" />
+                      <Avatar alt="Remy Sharp" src="../../images/twitter.png" />
+                      <Avatar alt="Remy Sharp" src="../../images/google.png" />
+                      <Avatar alt="Remy Sharp" src="../../images/linkedin.png" />
+                      <Avatar alt="Remy Sharp" src="../../images/instagram.png" />
+                    </div>
+                  </Grid>
+                </Grid>
+              </form>
+            </div>
+          </Grid>
+        </Grid>
+      </div>
   );
 }
