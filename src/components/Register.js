@@ -211,7 +211,7 @@ export default function SignIn() {
                             id="standard-adornment-password"
                             type={values.password_confirmation ? 'text' : 'password'}
                             value={values.password_confirmation}
-                            onChange={handleChange('password')}
+                            onChange={handleChange('password_confirmation')}
                             endAdornment={
                               <InputAdornment position="end" >
                                 <IconButton
