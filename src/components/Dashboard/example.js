@@ -4,7 +4,6 @@ import { withRouter } from "react-router";
 import MaterialTable from "material-table";
 import {allProd as api} from "../../Path";
 import axiosConfig from '../axiosConfig';
-import Container from "@material-ui/core/Container";
 class DashboardNewsList extends Component {
 
     state = {
@@ -26,7 +25,6 @@ class DashboardNewsList extends Component {
     deleteNews(data) {
         console.log('delete ',data);
     }
-    // axios.get(URL, { params:{}, headers: { 'Authorization': AuthStr } })
     getProductList = () => {
         const  token = 'Bearer '+ localStorage.getItem('token');
         axiosConfig.get(api,{headers:{ 'Authorization': token }})

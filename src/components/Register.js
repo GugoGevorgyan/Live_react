@@ -21,6 +21,7 @@ import CircleCheckedFilled from '@material-ui/icons/CheckCircle';
 import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 import {registerApi as api} from "../Path"
 import {useHistory} from "react-router-dom";
+import {func} from "prop-types";
 const useStyles = makeStyles((theme) => ({
   authCover: {
     width: '100%',
@@ -101,6 +102,19 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: '10px',
   },
 }));
+
+let err = "ff";
+
+function myError(error){
+ return err.err = error;
+  // console.log(err ,'argum_ccc');
+  // return err = "arg[0]";
+}
+function resultErr(arg){
+  err = arg ;
+  console.log(err, "dddddd");
+}
+
 function handleLogin(data,history) {
   axiosConfig.post(api,data)
       .then(res => res)
@@ -114,6 +128,7 @@ function handleLogin(data,history) {
             history.push("/login");
           }
       ).catch((error) => {
+        myError(error.response.data.errors.password[0])
     console.log(error, 'err');
         console.log(error.response.data.errors,'mes');
       });
@@ -134,10 +149,14 @@ export default function SignIn() {
     password: '',
     password_confirmation:'',
     showPassword: false,
+    err: '',
   });
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
+
   };
+  resultErr(values);
+
   const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword });
   };
