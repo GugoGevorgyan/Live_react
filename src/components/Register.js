@@ -207,7 +207,6 @@ export default function SignIn() {
                             }
                         />
                       </FormControl>
-
                       <FormControl className={clsx(classes.margin, classes.authInputStyle)} >
                         <InputLabel htmlFor="standard-adornment-password">Password*</InputLabel>
                         <Input
