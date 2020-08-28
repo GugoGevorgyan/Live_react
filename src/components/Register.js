@@ -105,6 +105,7 @@ function handleLogin(data,history) {
   axiosConfig.post(api,data)
       .then(res => res)
       .then(res => {
+        console.log(res, "res");
             if( res.data.access_token === undefined){
               console.log('krkin pordzer');
               return;
@@ -113,7 +114,8 @@ function handleLogin(data,history) {
             history.push("/login");
           }
       ).catch((error) => {
-    console.log(error.data.ValidationException, "err");
+    console.log(error, 'err');
+        console.log(error.response.data.errors,'mes');
       });
 }
 export default function SignIn() {
@@ -127,6 +129,7 @@ export default function SignIn() {
     handleLogin(values, history);
   }
   const [values, setValues] = React.useState({
+    fullName:'',
     email: '',
     password: '',
     password_confirmation:'',
@@ -162,8 +165,8 @@ export default function SignIn() {
                           InputProps={{ disableUnderline: true }}
                           className={classes.authInputStyle}
                           autoComplete="fullName"
-                          value={values.email}
-                          onChange={handleChange('email')}
+                          value={values.fullName}
+                          onChange={handleChange('fullName')}
                       />
                     </div>
                   </Grid>
@@ -177,7 +180,7 @@ export default function SignIn() {
                           InputProps={{ disableUnderline: true }}
                           className={classes.authInputStyle}
                           autoComplete="email"
-                          value={values.fullName}
+                          value={values.email}
                           onChange={handleChange('email')}
                       />
                     </div>
