@@ -19,7 +19,7 @@ import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import CircleCheckedFilled from '@material-ui/icons/CheckCircle';
 import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
-import {loginApi as api} from "../Path"
+import {loginApi as api} from "../Path";
 import {useHistory} from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
@@ -126,7 +126,7 @@ export default function SignIn() {
   }
 
   function handleLogin(data,history) {
-    axiosConfig.post('/api/login', data)
+    axiosConfig.post('api', data)
         .then((response) => {
 
           if( response.data.access_token != null){
@@ -251,7 +251,6 @@ export default function SignIn() {
             </div>
           </Grid>
         </Grid>
-
       </div>
 
   );
