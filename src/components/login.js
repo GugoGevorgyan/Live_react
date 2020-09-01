@@ -21,6 +21,9 @@ import CircleCheckedFilled from '@material-ui/icons/CheckCircle';
 import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 import {loginApi as api} from "../Path"
 import {useHistory} from "react-router-dom";
+import { useTranslation } from 'react-i18next';
+
+
 const useStyles = makeStyles((theme) => ({
   authCover: {
     width: '100%',
@@ -50,6 +53,13 @@ const useStyles = makeStyles((theme) => ({
     borderBottom: '2px solid transparent',
     borderImage: 'linear-gradient(90deg, #4856D1 20.94%, #39B0D6 101.76%)',
     borderImageSlice: '1',
+  },
+  authInputStyleError: {
+    width: '100%',
+    marginBottom: '1rem',
+    borderBottom: '2px solid transparent',
+    borderImageSlice: '1',
+    border: '1px solid red',
   },
   text: {
     fontFamily: 'Roboto',
@@ -96,23 +106,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-  // function handleLogin(data,history) {
-  //   axiosConfig.post('/api/login', data)
-  //       .then((res) => {
-  //         console.log(res.data)
-  //         if( res.data.access_token != null){
-  //           localStorage.setItem('token', res.data.access_token);
-  //           history.push("/login");
-  //         }
-  //       }).catch((error) => {
-  //       console.log(error, 'Something is wrong')
-  //   });
-  // }
-
-
 export default function SignIn() {
+  const { t, i18n } = useTranslation();
+  function handleClick(lang){
+    i18n.changeLanguage(lang);
+  }
+
   const classes = useStyles();
   const history = useHistory();
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+
   const token = localStorage.getItem('token');
   if (token && token !== 'undefined'){
     history.push('/example');
@@ -123,22 +127,21 @@ export default function SignIn() {
 
   function handleLogin(data,history) {
     axiosConfig.post('/api/login', data)
-        .then((res) => {
-          // console.log(res.data)
-          console.log(res.data.message);
-          setError( res.data.message)
-          // console.log(error)
+        .then((response) => {
 
-          if( res.data.access_token != null){
-            localStorage.setItem('token', res.data.access_token);
+          if( response.data.access_token != null){
+            localStorage.setItem('token', response.data.access_token);
             history.push("/login");
           }
         }).catch((error) => {
-          console.log(error, 'Something is wrong')
+          if (error.response.status == 401){
+              console.log(error.response.data.message);
+              setEmail(error.response.data.message.email);
+              setPassword(error.response.data.message.password);
+          }
         });
   }
 
-  const [error, setError] = useState("aaa")
 
   const [values, setValues] = React.useState({
     email: '',
@@ -150,17 +153,29 @@ export default function SignIn() {
     setValues({ ...values, [prop]: event.target.value });
   };
   const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.password });
+    setValues({ ...values, showPassword: !values.showPassword });
   };
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
   return (
+
       <div className={classes.authCover}>
+        <div>
+          <button onClick={()=>handleClick('en')}>
+            English
+          </button>
+          <button onClick={()=>handleClick('ko')}>
+            русский
+          </button>
+          <button onClick={()=>handleClick('chi')}>
+            Chinase
+          </button>
+        </div>
         <Grid container>
           <Grid item lg={4} md={6} >
             <div className={classes.authContainer}>
-              <Typography variant="body2" component="h1" className={classes.authTitle}>Sign In</Typography>
+              <Typography variant="body2" component="h1" className={classes.authTitle}>{t('Thanks.1')}</Typography>
               <form className={classes.root} noValidate autoComplete="off">
                 <Grid container>
                   <Grid item xs={12}>
@@ -170,7 +185,7 @@ export default function SignIn() {
                           label="email"
                           name="email"
                           InputProps={{ disableUnderline: true }}
-                          className={classes.authInputStyle}
+                          className={email? classes.authInputStyleError: classes.authInputStyle}
                           autoComplete="email"
                           value={values.email}
                           onChange={handleChange('email')}
@@ -229,7 +244,6 @@ export default function SignIn() {
                       <Avatar alt="Remy Sharp" src="../../images/google.png" />
                       <Avatar alt="Remy Sharp" src="../../images/linkedin.png" />
                       <Avatar alt="Remy Sharp" src="../../images/instagram.png" />
-                      <p>{error}</p>
                     </div>
                   </Grid>
                 </Grid>
@@ -237,6 +251,8 @@ export default function SignIn() {
             </div>
           </Grid>
         </Grid>
+
       </div>
+
   );
 }
