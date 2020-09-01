@@ -26,31 +26,31 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
 function Copyright() {
   return (
-      <Typography variant="body2" color="textSecondary" align="center">
-        {"Copyright © "}
-        <Link color="inherit" href="https://material-ui.com/">
-          Your Website
-        </Link>{" "}
-        {new Date().getFullYear()}
-        {"."}
-      </Typography>
+    <Typography variant="body2" color="textSecondary" align="center">
+      {"Copyright © "}
+      <Link color="inherit" href="https://material-ui.com/">
+        Your Website
+      </Link>{" "}
+      {new Date().getFullYear()}
+      {"."}
+    </Typography>
   );
 }
 
 function to_register(data) {
   axiosConfig
-      .post(api, data)
+    .post(api, data)
 
-      .then((res) => res)
-      .then((res) => {
-        console.log(res, "myRespons");
-        localStorage.setItem("token", res.data.access_token);
-      })
-      .catch((error) => {
-        // let err =  error.json(error.responseText);
-        //  console.log(err,'fff');
-        console.log(error.data.ValidationException, "err");
-      });
+    .then((res) => res)
+    .then((res) => {
+      console.log(res, "myRespons");
+      localStorage.setItem("token", res.data.access_token);
+    })
+    .catch((error) => {
+      // let err =  error.json(error.responseText);
+      //  console.log(err,'fff');
+      console.log(error.data.ValidationException, "err");
+    });
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -156,136 +156,136 @@ export default function SignUp() {
   };
 
   return (
-      <div className={classes.test}>
-        <Container component="main" maxWidth="xs" className={classes.container}>
-          <CssBaseline />
-          <div className={classes.paper}>
-            <Typography component="h1" variant="h5" className={classes.signup}>
-              <span className={classes.color1}>Sign</span>{" "}
-              <span className={classes.color2}>up</span>
-            </Typography>
-            <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-              <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  <FormControl className={classes.input} fullWidth>
-                    <InputLabel required htmlFor="fullName" xs={12}>
-                      Full Name
-                    </InputLabel>
-                    <Input id="fullname" type="text" disableUnderline={true} />
-                  </FormControl>
-                </Grid>
-                <Grid item xs={12}>
-                  <FormControl className={classes.input} fullWidth>
-                    <InputLabel required htmlFor="e-mail" xs={12}>
-                      E-mail
-                    </InputLabel>
-                    <Input id="email" type="email" disableUnderline={true} />
-                  </FormControl>
-                </Grid>
-                <Grid item xs={12}>
-                  <FormControl className={classes.input} fullWidth>
-                    <InputLabel required htmlFor="password" xs={12}>
-                      Password
-                    </InputLabel>
-                    <Input
-                        id="password"
-                        type={value1.showPassword ? "text" : "password"}
-                        value={value1.password}
-                        onChange={handleChange1("password")}
-                        disableUnderline={true}
-                        endAdornment={
-                          <InputAdornment position="end">
-                            <IconButton
-                                aria-label="toggle password visibility"
-                                onClick={handleClickShowPassword1}
-                                onMouseDown={handleMouseDownPassword}
-                            >
-                              {value1.showPassword ? (
-                                  <Visibility />
-                              ) : (
-                                  <VisibilityOff />
-                              )}
-                            </IconButton>
-                          </InputAdornment>
-                        }
-                    />
-                  </FormControl>
-                </Grid>
-
-                <Grid item xs={12}>
-                  <FormControl className={classes.input} fullWidth>
-                    <InputLabel required htmlFor="password-repeat">
-                      Repeat password
-                    </InputLabel>
-                    <Input
-                        id="password-repeat"
-                        type={value2.showPassword ? "text" : "password"}
-                        value={value2.password}
-                        onChange={handleChange2("password")}
-                        disableUnderline={true}
-                        endAdornment={
-                          <InputAdornment position="end">
-                            <IconButton
-                                aria-label="toggle password visibility"
-                                onClick={handleClickShowPassword2}
-                                onMouseDown={handleMouseDownPassword}
-                            >
-                              {value2.showPassword ? (
-                                  <Visibility />
-                              ) : (
-                                  <VisibilityOff />
-                              )}
-                            </IconButton>
-                          </InputAdornment>
-                        }
-                    />
-                  </FormControl>
-                </Grid>
-
-                <Grid item xs={12} className={classes.check}>
-                  <FormControlLabel
-                      control={
-                        <Checkbox color="primary" className={classes.checkbox} />
-                      }
-                      label="I agree with the privacy policy"
+    <div className={classes.test}>
+      <Container component="main" maxWidth="xs" className={classes.container}>
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Typography component="h1" variant="h5" className={classes.signup}>
+            <span className={classes.color1}>Sign</span>{" "}
+            <span className={classes.color2}>up</span>
+          </Typography>
+          <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <FormControl className={classes.input} fullWidth>
+                  <InputLabel required htmlFor="fullName" xs={12}>
+                    Full Name
+                  </InputLabel>
+                  <Input id="fullname" type="text" disableUnderline={true} />
+                </FormControl>
+              </Grid>
+              <Grid item xs={12}>
+                <FormControl className={classes.input} fullWidth>
+                  <InputLabel required htmlFor="e-mail" xs={12}>
+                    E-mail
+                  </InputLabel>
+                  <Input id="email" type="email" disableUnderline={true} />
+                </FormControl>
+              </Grid>
+              <Grid item xs={12}>
+                <FormControl className={classes.input} fullWidth>
+                  <InputLabel required htmlFor="password" xs={12}>
+                    Password
+                  </InputLabel>
+                  <Input
+                    id="password"
+                    type={value1.showPassword ? "text" : "password"}
+                    value={value1.password}
+                    onChange={handleChange1("password")}
+                    disableUnderline={true}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword1}
+                          onMouseDown={handleMouseDownPassword}
+                        >
+                          {value1.showPassword ? (
+                            <Visibility />
+                          ) : (
+                            <VisibilityOff />
+                          )}
+                        </IconButton>
+                      </InputAdornment>
+                    }
                   />
-                </Grid>
-                <Grid item xs={12} textAlign="center" fullWidth>
-                  Captcha to be here
-                </Grid>
-                <Grid item xs={12}>
-                  <Button
-                      type="submit"
-                      fullWidth
-                      variant="contained"
-                      color="primary"
-                      className={classes.submit}
-                  >
-                    Sign Up
-                  </Button>
-                </Grid>
+                </FormControl>
               </Grid>
 
-              <Grid item xs={12} className={classes.social}>
-                <Button className={classes.button}>
-                  <img src="/icons/icon_facebook.png" />
-                </Button>
-                <Button className={classes.button}>
-                  <img src="/icons/icon_instagram.png" />
-                </Button>
-                <Button className={classes.button}>
-                  <img src="/icons/icon_google.png" />
-                </Button>
-                <Button className={classes.button}>
-                  <img src="/icons/icon_linkedin.png" />
-                </Button>
-                <Button className={classes.button}>
-                  <img src="/icons/icon_twitter.png" />
+              <Grid item xs={12}>
+                <FormControl className={classes.input} fullWidth>
+                  <InputLabel required htmlFor="password-repeat">
+                    Repeat password
+                  </InputLabel>
+                  <Input
+                    id="password-repeat"
+                    type={value2.showPassword ? "text" : "password"}
+                    value={value2.password}
+                    onChange={handleChange2("password")}
+                    disableUnderline={true}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword2}
+                          onMouseDown={handleMouseDownPassword}
+                        >
+                          {value2.showPassword ? (
+                            <Visibility />
+                          ) : (
+                            <VisibilityOff />
+                          )}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                  />
+                </FormControl>
+              </Grid>
+
+              <Grid item xs={12} className={classes.check}>
+                <FormControlLabel
+                  control={
+                    <Checkbox color="primary" className={classes.checkbox} />
+                  }
+                  label="I agree with the privacy policy"
+                />
+              </Grid>
+              <Grid item xs={12} textAlign="center" fullWidth>
+                Captcha to be here
+              </Grid>
+              <Grid item xs={12}>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                >
+                  Sign Up
                 </Button>
               </Grid>
-            </form>
-          </div>
-        </Container>
-      </div>
+            </Grid>
+
+            <Grid item xs={12} className={classes.social}>
+              <Button className={classes.button}>
+                <img src="/icons/icon_facebook.png" />
+              </Button>
+              <Button className={classes.button}>
+                <img src="/icons/icon_instagram.png" />
+              </Button>
+              <Button className={classes.button}>
+                <img src="/icons/icon_google.png" />
+              </Button>
+              <Button className={classes.button}>
+                <img src="/icons/icon_linkedin.png" />
+              </Button>
+              <Button className={classes.button}>
+                <img src="/icons/icon_twitter.png" />
+              </Button>
+            </Grid>
+          </form>
+        </div>
+      </Container>
+    </div>
   );
 }
