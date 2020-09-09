@@ -22,6 +22,7 @@ import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 import {loginApi as api} from "../Path"
 import {useHistory} from "react-router-dom";
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -103,7 +104,7 @@ const useStyles = makeStyles((theme) => ({
   },
   emailinputstyle: {
     marginLeft: '10px',
-  },
+  }
 }));
 
 export default function SignIn() {
@@ -234,7 +235,7 @@ export default function SignIn() {
                   </Grid>
                   <Grid item xs={12}>
                     <div className={classes.forgot}>
-                      <Typography variant="body2" className={classes.forgotStyle}>Forgot password</Typography>
+                       <Typography variant="body2" className={classes.forgotStyle}><Link to={'/forgot'}>Forgot password</Link></Typography>
                     </div>
                   </Grid>
                   <Grid item xs={12}>

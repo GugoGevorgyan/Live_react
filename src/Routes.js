@@ -6,6 +6,7 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import RegisterCompany from "./components/RegisterCompany";
 import Reg from "./components/Reg";
 import example from "./components/Dashboard/example";
+import Forgot from "./components/forgot";
 
 export default class createRoutes extends Component {
   render() {
@@ -18,6 +19,7 @@ export default class createRoutes extends Component {
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/example" component={example} />
         <Route path="/registerCompany" component={RegisterCompany} />
+        <Route path="/forgot" component={Forgot}/>
       </Router>
     );
   }
